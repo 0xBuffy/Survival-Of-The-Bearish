@@ -1,0 +1,241 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    image-rendering: pixelated;
+}
+
+@font-face {
+    font-family: 'PixelFont';
+    src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    overflow: hidden;
+    background: #000;
+}
+
+/* Game container */
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Canvas styles */
+#game-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+/* Login screen */
+#login-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../assets/bearishNamePageBG.jpg') no-repeat center center fixed;
+    background-size: cover;
+    z-index: 1000;
+    pointer-events: auto;
+}
+
+#login-screen.hidden {
+    display: none;
+    pointer-events: none;
+}
+
+.login-box {
+    position: relative;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    z-index: 1001;
+    backdrop-filter: blur(5px);
+    pointer-events: auto;
+}
+
+.title {
+    color: #FFFFFF;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.input-field {
+    width: 80%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #FFE0B2;
+    border: 2px solid #8B4513;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
+    text-align: center;
+    outline: none;
+    position: relative;
+    z-index: 1002;
+    pointer-events: auto;
+}
+
+.start-button, .how-to-play-button {
+    display: block;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0 auto 1rem auto;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 1002;
+    pointer-events: auto;
+    width: auto;
+    min-width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.start-button {
+    background: #4CAF50;
+    color: white;
+}
+
+.start-button:hover {
+    background: #388E3C;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.how-to-play-button {
+    background: #8B4513;
+    color: white;
+}
+
+.how-to-play-button:hover {
+    background: #A0522D;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.how-to-play-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+.how-to-play-content {
+    background: #8B4513;
+    padding: 2rem;
+    border-radius: 10px;
+    position: relative;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.close-button:hover {
+    background: #ff6666;
+}
+
+.how-to-play-text {
+    color: white;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-top: 1rem;
+}
+
+.how-to-play-text h2 {
+    color: #FFE0B2;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.how-to-play-text ul {
+    list-style: none;
+    padding: 0;
+}
+
+.how-to-play-text li {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.how-to-play-text li:before {
+    content: "•";
+    color: #FFE0B2;
+    position: absolute;
+    left: 0;
+}
+
+/* Forest Background */
+.forest-bg {
+    display: none;
+}
+
+@keyframes forestParallax {
+    from { background-position: 0 0; }
+    to { background-position: -200px 0; }
+}
+
+.wave-counter {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #FFE0B2;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
+    z-index: 100;
+    border: 2px solid #8B4513;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.wave-counter.hidden {
+    display: none;
+} 

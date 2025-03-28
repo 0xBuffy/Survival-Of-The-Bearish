@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survival Of The Bearish</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>s
+    <div id="game-container">
+        <div id="login-screen">
+            <div class="login-box">
+                <h1 class="title">Survival Of The<br>Bearish</h1>
+                <input type="text" id="player-name" class="input-field" placeholder="Enter your name" maxlength="12" autocomplete="off">
+                <button id="start-button" class="start-button">Start Game</button>
+                <button id="how-to-play-button" class="how-to-play-button">How To Play?</button>
+            </div>
+        </div>
+        <div id="how-to-play-popup" class="how-to-play-popup">
+            <div class="how-to-play-content">
+                <button id="close-how-to-play" class="close-button">X</button>
+                <div class="how-to-play-text">
+                    <h2>How To Play</h2>
+                    <ul>
+                        <li>Use WASD Keys to move</li>
+                        <li>Right mouse click to attack</li>
+                        <li>Collect Red Berries to upgrade character</li>
+                        <li>Survive waves of hunters</li>
+                        <li>Use power-ups dropped from hunters</li>
+                        <li>Use Red Berries to buy diamonds</li>
+                        <li>Use Diamonds to unlock shop</li>
+                        <li>Use Blueberries to restore health with the shop</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="wave-counter" class="wave-counter hidden">Wave: 1</div>
+        <canvas id="game-canvas"></canvas>
+    </div>
+
+    <!-- Game Scripts -->
+    <script type="module">
+        import { Game } from './js/game.js';
+        import { CONFIG } from './js/config.js';
+        
+        let game;
+
+        // Function to start the game
+        function startGame(playerNameInput, loginScreen) {
+            const playerName = playerNameInput.value.trim();
+            if (playerName) {
+                console.log('Starting game with player:', playerName);
+                loginScreen.style.display = 'none';
+                game.start(playerName);
+            }
+        }
+
+        // Initialize game when DOM is loaded
+        function initGame() {
+            console.log('Initializing game...');
+            
+            // Get DOM elements first
+            const startButton = document.getElementById('start-button');
+            const playerNameInput = document.getElementById('player-name');
+            const loginScreen = document.getElementById('login-screen');
+            const gameCanvas = document.getElementById('game-canvas');
+            
+            if (!startButton || !playerNameInput || !loginScreen || !gameCanvas) {
+                console.error('Required DOM elements not found!');
+                return;
+            }
+            
+            console.log('DOM elements found, initializing game instance...');
+            
+            // Initialize game instance
+            game = new Game();
+            window.game = game;
+            
+            // Focus the input field when page loads
+            playerNameInput.focus();
+            console.log('Input field focused');
+
+            // Handle How To Play button click
+            const howToPlayButton = document.getElementById('how-to-play-button');
+            const howToPlayPopup = document.getElementById('how-to-play-popup');
+            const closeHowToPlay = document.getElementById('close-how-to-play');
+
+            howToPlayButton.addEventListener('click', () => {
+                howToPlayPopup.style.display = 'flex';
+            });
+
+            closeHowToPlay.addEventListener('click', () => {
+                howToPlayPopup.style.display = 'none';
+            });
+
+            // Close popup when clicking outside
+            howToPlayPopup.addEventListener('click', (e) => {
+                if (e.target === howToPlayPopup) {
+                    howToPlayPopup.style.display = 'none';
+                }
+            });
+
+            // Handle start button click
+            startButton.addEventListener('click', () => {
+                console.log('Start button clicked');
+                startGame(playerNameInput, loginScreen);
+            });
+
+            // Handle Enter key press
+            playerNameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    console.log('Enter key pressed');
+                    startGame(playerNameInput, loginScreen);
+                }
+            });
+
+            // Add direct mouse event listeners to canvas
+            gameCanvas.addEventListener('mousedown', (e) => {
+                if (e.button === 0) { // Left click
+                    console.log('Canvas clicked, starting attack...');
+                    if (game && game.startAttack) {
+                        game.startAttack();
+                    }
+                }
+            });
+            
+            console.log('Game initialization complete');
+        }
+
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html> 
